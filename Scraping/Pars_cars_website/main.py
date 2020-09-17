@@ -4,9 +4,7 @@ import csv
 
 
 CSV = 'cards.csv'
-# Сайт который мы будем парсить
 HOST = 'https://minfin.com.ua/'
-# Страница которую мы будем парсить
 URL = 'https://minfin.com.ua/cards/'
 HEADERS = {
     "accept": 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
@@ -22,20 +20,15 @@ def get_html(url, params=''):
 
 
 def get_content(html):
-    # Объявляем парсер
     soup = BeautifulSoup(html, 'html.parser')
-    # Парсим заданный контент
     contents = soup.find_all('div', class_='product-item')
     cards = []
     for i in range(1, 11):
         cards.append(
             {
-                # Берем название карты strip - Убирает все пробелы и '\n'
                 'title': contents[i].find('div', class_='title').get_text(strip=True),
-                # Ищем внутри div ссылку и берем с помощью get('href') саму ссылку
                 'link_prod': HOST + contents[i].find('div', class_='title').find('a').get('href'),
                 'brand': contents[i].find('div', class_='brand').get_text(strip=True),
-                # HOST + ... - создание ссылки
                 'image': HOST + contents[i].find('div', class_='image').find('img').get('src')
             }
         )
@@ -44,9 +37,7 @@ def get_content(html):
 
 def save_doc(cards, file):
     with open(file, 'w', newline='') as f:
-        # Создает csv файл delimiter - это разделитель
         writer = csv.writer(f, delimiter=';')
-        # создаем таблицу
         writer.writerow(['Название карты', 'Ссылка на продукт', 'Название компании', 'Фото продукта'])
         for i in cards:
             print(i)
@@ -66,7 +57,6 @@ def start(pagenation=1):
             html = get_html(URL, params={'page': i})
             cards.extend(get_content(html.text))
             save_doc(cards, CSV)
-        # return cards
     else:
         print('Ошибка в запросе сайта')
 
