@@ -1,9 +1,6 @@
 import requests
 import json
 import csv
-"""Введите API ключ: 1da3b490-5a42-4024-92dd-3df922215857
-Введите запрос: Авто
-Введите координаты: 37.624566,55.713384"""
 
 
 def get_html(url):
