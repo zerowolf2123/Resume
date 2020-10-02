@@ -34,11 +34,6 @@ def get_content(contents):
                 'url': 'Ссылки нет',
                 'phone': phone
             })
-    for i in items:
-        print(i['name'])
-        print(i['description'])
-        print(i['url'])
-        print(i['phone'])
     return items
 
 
