@@ -55,6 +55,8 @@ def do_start():
     token = input('Введите API ключ: ')
     text = input('Введите запрос: ')
     start = input('Введите центр координат: ')
+    start = start.split(',')
+    start = start[1] + start[0]
     end = input('Введите размер области в координатах: ')
     html = get_html(f'https://search-maps.yandex.ru/v1/?apikey={token}&text={text}&ll={start}&spn={end}&lang=ru_RU&results=500')
     if html.ok:
